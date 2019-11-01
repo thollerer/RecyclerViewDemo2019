@@ -1,6 +1,7 @@
-package edu.ucsb.cs.cs190i.holl.recyclerview;
+package edu.ucsb.cs.cs184.holl.recyclerview;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by holl on 5/5/17.
+ * Created by holl on 5/5/19.
  */
 
 public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder>{
-    @Override
+    @Override @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_entry, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder
         holder.layoutWithTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(holder.layoutWithTextView.getContext(), holder.toString(), Toast.LENGTH_SHORT).show();;
+                Toast.makeText(holder.layoutWithTextView.getContext(), "Holder: " + holder.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -38,15 +38,18 @@ public class NumberAdapter extends RecyclerView.Adapter<NumberAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private static int count = 0;
         private int id;
-        public View layoutWithTextView;
-        public ViewHolder(View view) {
+
+        View layoutWithTextView;
+        ViewHolder(View view) {
             super(view);
             this.layoutWithTextView = view;
             id = ++count;
         }
-        public void setInt(int number) {
+        void setInt(int number) {
             ((TextView) layoutWithTextView.findViewById(R.id.textView)).setText(number + "");
         }
+
+        @Override @NonNull
         public String toString() {
             return id + "/" + count;
         }
